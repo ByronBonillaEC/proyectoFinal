@@ -1,10 +1,13 @@
 <p>home works!</p>
 <form #forumForm="ngForm" (ngSubmit)="onSubmit(forum)"> 
+    <label for="id">
+        Id: <input type="text" name="id" [(ngModel)] = "forum.id" required placeholder="Id"/>
+    </label>
     <label for="title">
-        Title: <input type="text" name="title" [(ngModel)] = "forum.title" required placeholder="Titulo"/>
+        Title: <input type="text" name="title" [(ngModel)] = "forum.title" required placeholder="Title"/>
     </label>
     <label for="comment">
-        Comment: <input type="text" name="comment" [(ngModel)] = "forum.body" required placeholder="Comentario"/>
+        Comment: <input type="text" name="comment" [(ngModel)] = "forum.body" required placeholder="Comment"/>
     </label>
     <button type="submit">Guardar</button>
 </form>
@@ -13,7 +16,7 @@
     <h2>Forums</h2>
     <ul>
         <li *ngFor="let forum of forums">
-            <strong>{{forum.title}}</strong>: {{forum.body}}
+            <strong>{{forum.title}} - {{forum.id}}</strong>: {{forum.body}}
         </li>
     </ul>
 </div>

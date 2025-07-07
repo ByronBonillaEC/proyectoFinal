@@ -24,7 +24,6 @@ export class Home implements OnInit {
   forums : forumPost[] = [];
 
   ngOnInit() {
-    console.log('Ejecutando');
     this.forumService.getForums().subscribe(data => {
       this.forums = data;
       console.log('Forums loaded:',data);
@@ -34,10 +33,15 @@ export class Home implements OnInit {
   onSubmit(forum: forumPost){    
     console.log('Form Submited: ' + forum);
     forum.userId = 1;
-    forum.id = this.forums.length + 1;
+    //forum.id = this.forums.length + 1;
     
-    this.forumService.addForum(forum).subscribe(newForum => {
-      this.forums.unshift(newForum);
+    /*this.forumService.addForum(forum).subscribe(newForum => {
+      this.forums.unshift(newForum); //Añadir al inicio del arreglo
+      console.log('New forum added:', newForum);
+    })*/
+
+    this.forumService.updateForum(forum).subscribe(newForum => {
+      this.forums.unshift(newForum); //Añadir al inicio del arreglo
       console.log('New forum added:', newForum);
     })
 
