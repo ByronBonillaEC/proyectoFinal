@@ -31,4 +31,12 @@ export class ForumsService {
       map((raw) => raw)
     );
   }
+
+  updateForum(forum: forumPost) : Observable<forumPost> {
+    return this.http.put<forumPost>(`${this.apiUrl}/${forum.id}`, forum, { 
+      headers : this.jsonHeaders
+    }).pipe(
+      map((raw) => raw)
+    );
+  }
 }
