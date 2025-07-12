@@ -1,23 +1,26 @@
-<p>user works!</p>
-<form #forumForm="ngForm" (ngSubmit)="onSubmit(user)">
-    <label for="id">
-        Id: <input type="text" name="id" [(ngModel)]="user.id" required placeholder="Id" />
-    </label>
-    <label for="name">
-        Name: <input type="text" name="name" [(ngModel)]="user.name" required placeholder="Name" />
-    </label>
-    <label for="address">
-        Address: <input type="text" name="address" [(ngModel)]="user.address" required placeholder="Address" />
-    </label>
-    <label for="phone">
-        Phone: <input type="text" name="phone" [(ngModel)]="user.phone" required placeholder="Phone" />
-    </label>
-    <button type="submit">Save</button>
+<p class="title">User Management</p>
+
+<form #forumForm="ngForm" (ngSubmit)="onSubmit(user)" class="user-form">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input id="name" type="text" name="name" [(ngModel)]="user.name" required placeholder="Name" />
+  </div>
+  <div class="form-group">
+    <label for="address">Address:</label>
+    <input id="address" type="text" name="address" [(ngModel)]="user.address" required placeholder="Address" />
+  </div>
+  <div class="form-group">
+    <label for="phone">Phone:</label>
+    <input id="phone" type="text" name="phone" [(ngModel)]="user.phone" required placeholder="Phone" />
+  </div>
+  <button type="submit" class="btn btn-primary">Save</button>
 </form>
+
 <br />
-<div *ngIf="users.length > 0">
+
+<div *ngIf="users.length > 0" class="users-table-container">
   <h2>Users</h2>
-  <table>
+  <table class="users-table">
     <thead>
       <tr>
         <th>Id</th>
@@ -34,10 +37,8 @@
         <td>{{ user.name }}</td>
         <td>{{ user.address }}</td>
         <td>{{ user.phone }}</td>
-        <td>
-          <button (click)="onEdit(user)">Edit</button>
-          <button (click)="onDelete(user.id)">Delete</button>
-        </td>
+        <td><button (click)="onEdit(user)" class="btn btn-edit">Edit</button></td>
+        <td><button (click)="onDelete(user.id)" class="btn btn-delete">Delete</button></td>
       </tr>
     </tbody>
   </table>
