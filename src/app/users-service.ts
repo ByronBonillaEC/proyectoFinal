@@ -11,33 +11,39 @@ export class UsersService {
 
   private readonly apiUrl = environment.apiUser;
   private http = inject(HttpClient);
-  private jsonHeaders = new HttpHeaders({'Content-type' : 'application/json'});
+  private jsonHeaders = new HttpHeaders({ 'Content-type': 'application/json' });
 
   //constructor() { }
 
-  getUsers() : Observable<IUser[]> {
+  getUsers(): Observable<IUser[]> {
     console.log(`${this.apiUrl}`);
     return this.http.get<IUser[]>(`${this.apiUrl}/get-users`, {
-      headers : this.jsonHeaders
+      headers: this.jsonHeaders
     }).pipe(
       map((raw) => raw.reverse())
     );
   }
 
-  addUser(user: IUser) : Observable<IUser> {
-    return this.http.post<IUser>(`${this.apiUrl}/add-user`, user, { 
-      headers : this.jsonHeaders
+  addUser(user: IUser): Observable<IUser> {
+    return this.http.post<IUser>(`${this.apiUrl}/add-user`, user, {
+      headers: this.jsonHeaders
     }).pipe(
       map((raw) => raw)
     );
   }
 
-  updateForum(user: IUser) : Observable<IUser> {
-    return this.http.put<IUser>(`${this.apiUrl}/${user.id}`, user, { 
-      headers : this.jsonHeaders
+  updateUser(user: IUser): Observable<IUser> {
+    return this.http.put<IUser>(`${this.apiUrl}/update-user/${user.id}`, user, {
+      headers: this.jsonHeaders
     }).pipe(
       map((raw) => raw)
     );
+  }
+
+  deleteUser(user: IUser): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/delete-user/${user.id}`, {
+      headers: this.jsonHeaders
+    });
   }
 
 }
