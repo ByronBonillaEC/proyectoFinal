@@ -40,8 +40,8 @@ export class UsersService {
     );
   }
 
-  deleteUser(user: IUser): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/delete-user/${user.id}`, {
+  deleteUser(userId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/delete-user/${userId}`, {
       headers: this.jsonHeaders
     });
   }
