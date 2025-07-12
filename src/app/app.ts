@@ -19,7 +19,7 @@ export interface forumPost{
 }
 
 export interface IUser{
-  id : number,
+  id? : number,
   name: string,
   address: string,
   phone: string

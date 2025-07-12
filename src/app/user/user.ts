@@ -15,7 +15,7 @@ export class User implements OnInit {
     constructor (private userService : UsersService) { }
 
     user : IUser = {
-      id : 0,
+      //id : 0,
       name : '',
       address : '',
       phone : ''
@@ -31,12 +31,9 @@ export class User implements OnInit {
       }
     
       onSubmit(user: IUser){    
-        console.log('User Submited: ' + user);
-        //forum.userId = 1;
-        //forum.id = this.forums.length + 1;
-        
+        console.log('User Submited: ' + user);        
         this.userService.addUser(user).subscribe(newUser => {
-          this.users.unshift(newUser); //Añadir al inicio del arreglo
+          this.users.unshift(newUser); 
           console.log('New user added:', newUser);
         })
     
