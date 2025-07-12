@@ -24,6 +24,15 @@ export class UsersService {
     );
   }
 
+  getUserById(user: IUser): Observable<IUser> {
+    console.log(`${this.apiUrl}`);
+    return this.http.get<IUser>(`${this.apiUrl}/get-user-by-id/${user.id}`, {
+      headers: this.jsonHeaders
+    }).pipe(
+      map((raw) => raw)
+    );
+  }
+
   addUser(user: IUser): Observable<IUser> {
     return this.http.post<IUser>(`${this.apiUrl}/add-user`, user, {
       headers: this.jsonHeaders

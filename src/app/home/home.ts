@@ -50,18 +50,24 @@ export class Home implements OnInit {
     }
   
     onEdit(user: IUser) {
-      this.user = { ...user }; // copiar datos al formulario
+      //this.user = { ...user }; 
+      this.userService.getUserById(user).subscribe(consultado => {
+        this.user = consultado;
+      })
     }
   
-    // Eliminar usuario
     onDelete(id?: number) {
       if (!id) return;
+
+      const confirmed = confirm('¿Estás seguro que deseas borrar este usuario?');
+      if (!confirmed) return; 
+
       this.userService.deleteUser(id).subscribe(() => {
         this.users = this.users.filter(u => u.id !== id);
       });
     }
   
-    // Limpiar formulario
+
     resetForm() {
       this.user = {
         name: '',
