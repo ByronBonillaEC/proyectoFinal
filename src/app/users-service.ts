@@ -9,7 +9,7 @@ import { IUser } from './app';
 })
 export class UsersService {
 
-  private readonly apiUrl = environment.api;
+  private readonly apiUrl = environment.apiUser;
   private http = inject(HttpClient);
   private jsonHeaders = new HttpHeaders({'Content-type' : 'application/json'});
 
