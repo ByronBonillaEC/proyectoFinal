@@ -1,22 +1,46 @@
 <p>home works!</p>
-<form #forumForm="ngForm" (ngSubmit)="onSubmit(forum)"> 
-    <label for="id">
-        Id: <input type="text" name="id" [(ngModel)] = "forum.id" required placeholder="Id"/>
-    </label>
-    <label for="title">
-        Title: <input type="text" name="title" [(ngModel)] = "forum.title" required placeholder="Title"/>
-    </label>
-    <label for="comment">
-        Comment: <input type="text" name="comment" [(ngModel)] = "forum.body" required placeholder="Comment"/>
-    </label>
-    <button type="submit">Guardar</button>
+<p class="title">User Management</p>
+
+<form #forumForm="ngForm" (ngSubmit)="onSubmit(user)" class="user-form">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input id="name" type="text" name="name" [(ngModel)]="user.name" required placeholder="Name" />
+  </div>
+  <div class="form-group">
+    <label for="address">Address:</label>
+    <input id="address" type="text" name="address" [(ngModel)]="user.address" required placeholder="Address" />
+  </div>
+  <div class="form-group">
+    <label for="phone">Phone:</label>
+    <input id="phone" type="text" name="phone" [(ngModel)]="user.phone" required placeholder="Phone" />
+  </div>
+  <button type="submit" class="btn btn-primary">Save</button>
 </form>
-<br/>
-<div *ngIf="forums.length > 0">
-    <h2>Forums</h2>
-    <ul>
-        <li *ngFor="let forum of forums">
-            <strong>{{forum.title}} - {{forum.id}}</strong>: {{forum.body}}
-        </li>
-    </ul>
+
+<br />
+
+<div *ngIf="users.length > 0" class="users-table-container">
+  <h2>Users</h2>
+  <table class="users-table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.address }}</td>
+        <td>{{ user.phone }}</td>
+        <td><button (click)="onEdit(user)" class="btn btn-edit">Edit</button></td>
+        <td><button (click)="onDelete(user.id)" class="btn btn-delete">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
 </div>

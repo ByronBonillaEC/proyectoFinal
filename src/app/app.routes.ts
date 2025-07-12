@@ -14,11 +14,6 @@ export const routes: Routes = [
         path: 'contact',
         title: 'Contact',
         component: Contact
-    },
-    {
-        path: 'user',
-        title: 'User',
-        component: User
     }
 
 ];

@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { forumPost } from '../app';
-import { ForumsService } from '../forums-service';
+import { IUser } from '../app';
+import { UsersService } from '../users-service';
 
 @Component({
   selector: 'app-home',
@@ -12,39 +12,62 @@ import { ForumsService } from '../forums-service';
 })
 export class Home implements OnInit {
 
-  constructor(private forumService: ForumsService) { }
-
-  forum: forumPost = {
-    userId : 0,
-    id : 0,
-    title : '',
-    body : ''
-  }
-
-  forums : forumPost[] = [];
-
-  ngOnInit() {
-    this.forumService.getForums().subscribe(data => {
-      this.forums = data;
-      console.log('Forums loaded:',data);
-    })
-  }
-
-  onSubmit(forum: forumPost){    
-    console.log('Form Submited: ' + forum);
-    forum.userId = 1;
-    //forum.id = this.forums.length + 1;
-    
-    /*this.forumService.addForum(forum).subscribe(newForum => {
-      this.forums.unshift(newForum); //Añadir al inicio del arreglo
-      console.log('New forum added:', newForum);
-    })*/
-
-    this.forumService.updateForum(forum).subscribe(newForum => {
-      this.forums.unshift(newForum); //Añadir al inicio del arreglo
-      console.log('New forum added:', newForum);
-    })
-
-  }
+  constructor(private userService: UsersService) { }
+  
+    user: IUser = {
+      //id : 0,
+      name: '',
+      address: '',
+      phone: ''
+    }
+  
+    users: IUser[] = [];
+  
+    ngOnInit() {
+      this.userService.getUsers().subscribe(data => {
+        this.users = data;
+        console.log('Users loaded:', data);
+      })
+    }
+  
+    onSubmit(user: IUser) {
+      console.log('User Submited: ' + user);
+      if (user.id) {
+        this.userService.updateUser(user).subscribe(updated => {
+          const index = this.users.findIndex(u => u.id === user.id);
+          if (index !== -1) {
+            this.users[index] = updated;
+            console.log('User Updated', updated);
+          }
+        })
+      } else {
+        this.userService.addUser(user).subscribe(newUser => {
+          this.users.unshift(newUser);
+          console.log('New user added:', newUser);
+        })
+      }
+      this.resetForm();
+    }
+  
+    onEdit(user: IUser) {
+      this.user = { ...user }; // copiar datos al formulario
+    }
+  
+    // Eliminar usuario
+    onDelete(id?: number) {
+      if (!id) return;
+      this.userService.deleteUser(id).subscribe(() => {
+        this.users = this.users.filter(u => u.id !== id);
+      });
+    }
+  
+    // Limpiar formulario
+    resetForm() {
+      this.user = {
+        name: '',
+        address: '',
+        phone: ''
+      };
+    }
 
 }
